@@ -12,7 +12,7 @@ const Signup = () => {
         try {
             const response = await axios.post('http://localhost:8000/api/auth/signup', { username, password });
             if (response.status === 201) {
-                navigate('/login'); // Redirect to login page after successful signup
+                navigate('/login'); 
             }
         } catch (error) {
             console.error('Signup failed:', error.response ? error.response.data : error.message);
