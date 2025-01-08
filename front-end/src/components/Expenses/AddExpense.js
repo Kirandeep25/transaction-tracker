@@ -5,22 +5,22 @@ const AddExpense = () => {
     const [category, setCategory] = useState('');
     const [amount, setAmount] = useState('');
     const [comments, setComments] = useState('');
-    const [successMessage, setSuccessMessage] = useState(''); // State for success message
+    const [successMessage, setSuccessMessage] = useState(''); 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('token'); // Retrieve the token from local storage
+            const token = localStorage.getItem('token'); 
             const response = await axios.post('http://localhost:8000/api/expenses', 
                 { category, amount, comments },
-                { headers: { Authorization: `Bearer ${token}` } } // Include the token in the headers
+                { headers: { Authorization: `Bearer ${token}` } } 
             );
             if (response.status === 201) {
                 // Handle successful expense addition (e.g., reset form, show success message)
                 setCategory('');
                 setAmount('');
                 setComments('');
-                setSuccessMessage('Expense added successfully!'); // Set success message
+                setSuccessMessage('Expense added successfully!'); 
             }
         } catch (error) {
             console.error('Failed to add expense:', error);
