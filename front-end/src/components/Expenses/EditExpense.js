@@ -5,15 +5,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const EditExpense = () => {
     const location = useLocation();
     const navigate = useNavigate(); // Initialize navigate
-    const { expense } = location.state || {}; // Access expense from location state
-    //const onUpdate = location.state?.onUpdate; // Access onUpdate from location state
+    const { expense } = location.state || {}; 
+    //const onUpdate = location.state?.onUpdate; 
     const [category, setCategory] = useState(expense?.category || '');
     const [amount, setAmount] = useState(expense?.amount || 0);
     const [comments, setComments] = useState(expense?.comments || '');
 
     if (!expense) {
         console.error('Expense data is not available');
-        return <div>Error: Expense data is not available.</div>; // Handle undefined expense
+        return <div>Error: Expense data is not available.</div>; 
     }
 
     const handleSubmit = async (e) => {
@@ -26,8 +26,8 @@ const EditExpense = () => {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             //onUpdate({ ...expense, category, amount, comments });
-            alert('Expense updated successfully!'); // Show success message
-            navigate('/expense-list'); // Navigate back to the expense list after updating
+            alert('Expense updated successfully!'); 
+            navigate('/expense-list'); 
         } catch (error) {
             console.error('Failed to update expense:', error);
         }
