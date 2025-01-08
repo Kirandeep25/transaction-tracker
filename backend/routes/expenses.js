@@ -4,11 +4,8 @@ const Expense = require('../models/Expense');
 const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
-
-// Apply middleware to all routes
 router.use(authMiddleware);
 
-// Add Expense
 router.post('/', async (req, res) => {
     const { category, amount, comments } = req.body;
     try {
@@ -25,22 +22,20 @@ router.post('/', async (req, res) => {
     }
 });
 
-// View Expenses (only for the logged-in user)
 router.get('/', async (req, res) => {
     try {
-        const expenses = await Expense.find({ user: req.user._id }).sort({ createdAt: -1 }); // Filter by user ID
+        const expenses = await Expense.find({ user: req.user._id }).sort({ createdAt: -1 }); 
         res.json(expenses);
     } catch (error) {
         res.status(500).json({ message: "Failed to fetch expenses", error: error.message });
     }
 });
 
-// Edit Expense
 router.put('/:id', async (req, res) => {
     const { category, amount, comments } = req.body;
     try {
         const updatedExpense = await Expense.findOneAndUpdate(
-            { _id: req.params.id, user: req.user._id }, // Ensure the user can only update their own expense
+            { _id: req.params.id, user: req.user._id }, 
             { category, amount, comments, updatedAt: Date.now() },
             { new: true }
         );
@@ -53,7 +48,7 @@ router.put('/:id', async (req, res) => {
 // Delete Expense
 router.delete('/:id', async (req, res) => {
     try {
-        const expense = await Expense.findOneAndDelete({ _id: req.params.id, user: req.user._id }); // Ensure the user can only delete their own expense
+        const expense = await Expense.findOneAndDelete({ _id: req.params.id, user: req.user._id }); 
         if (!expense) {
             return res.status(404).json({ message: "Expense not found or not authorized" });
         }
