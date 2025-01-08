@@ -6,7 +6,7 @@ const ExpenseSchema = new mongoose.Schema({
     comments: { type: String },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Link to User model
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, 
 });
 
 module.exports = mongoose.model('Expense', ExpenseSchema);
