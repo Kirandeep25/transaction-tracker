@@ -5,7 +5,5 @@ function generateToken(userId) {
     const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '15s' });
     console.log('Generated Token:', token);
 }
-
-// Example usage
-const userId = 'exampleUserId'; // Replace with actual user ID
+const userId = 'exampleUserId'; 
 generateToken(userId);
