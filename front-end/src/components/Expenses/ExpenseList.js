@@ -10,23 +10,20 @@ const ExpenseList = () => {
     useEffect(() => {
         const fetchExpenses = async () => {
             try {
-                const token = localStorage.getItem('token'); // Retrieve the token from local storage
+                const token = localStorage.getItem('token'); 
                 if (!token) {
                     console.error("No token found in local storage.");
                     return;
                 }
 
-                // Fetch the expenses of the logged-in user using the token
                 const response = await axios.get('http://localhost:8000/api/expenses', {
                     headers: {
-                        Authorization: `Bearer ${token}`, // Include the token in the headers
+                        Authorization: `Bearer ${token}`, 
                     }
                 });
 
-                // Set expenses data
                 setExpenses(response.data);
 
-                // Calculate total amount
                 const total = response.data.reduce((acc, expense) => acc + expense.amount, 0);
                 setTotalAmount(total);
             } catch (error) {
@@ -36,7 +33,7 @@ const ExpenseList = () => {
 
         fetchExpenses();
     }, []);
- // Update total amount whenever expenses change
+ 
     useEffect(() => {
         const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
         setTotalAmount(total);
