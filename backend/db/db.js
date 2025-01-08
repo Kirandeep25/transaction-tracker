@@ -1,4 +1,3 @@
-// Initiate the connection to the database using mongoose
 const mongoose = require('mongoose');
 
 const db = async () => {
