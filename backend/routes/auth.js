@@ -6,7 +6,6 @@ const User = require('../models/User');
 const router = express.Router();
 let refreshTokens = [];
 
-// Sign Up
 router.post('/signup', async (req, res) => {
     const { username, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -15,7 +14,6 @@ router.post('/signup', async (req, res) => {
     res.status(201).json({ message: 'User created' });
 });
 
-// Login
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -30,7 +28,6 @@ router.post('/login', async (req, res) => {
     res.json({ accessToken, refreshToken });
 });
 
-// Token
 router.post('/token', (req, res) => {
     const refreshToken = req.body.token;
     if (refreshToken == null) return res.sendStatus(401);
@@ -42,7 +39,6 @@ router.post('/token', (req, res) => {
     });
 });
 
-// Logout
 router.delete('/logout', (req, res) => {
     refreshTokens = refreshTokens.filter(token => token !== req.body.token);
     res.sendStatus(204);
