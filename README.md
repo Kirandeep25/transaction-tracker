@@ -16,7 +16,7 @@ This is a Full Stack Expense Tracker application built using the **MERN stack** 
 - **Edit Expense**: Users can edit existing expenses.
 - **Delete Expense**: Users can delete expenses.
 
-### Data Visualization (Optional)
+### Data Visualization
 - **Pie Chart**: Displays category-wise expense distribution using libraries like Chart.js.
 
 ---
@@ -44,7 +44,7 @@ This is a Full Stack Expense Tracker application built using the **MERN stack** 
 ### Prerequisites
 Make sure you have the following installed:
 - **Node.js**
-- **MongoDB**
+- **MongoDB Compass**
 - **npm** or **yarn**
 
 ### Steps
@@ -115,10 +115,11 @@ Make sure you have the following installed:
 ```
 expense-tracker/
 ├── backend/              # Backend code
+│   ├── db/               # database connection
 │   ├── controllers/      # API controllers
 │   ├── models/           # Database models
 │   ├── routes/           # API routes
-│   ├── server.js         # Entry point for the backend
+│   ├── index.js          # Entry point for the backend
 │   └── .env              # Environment variables
 ├── frontend/             # Frontend code
 │   ├── public/           # Public assets
