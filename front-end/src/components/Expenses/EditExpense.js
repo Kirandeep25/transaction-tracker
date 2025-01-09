@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const EditExpense = () => {
     const location = useLocation();
-    const navigate = useNavigate(); // Initialize navigate
+    const navigate = useNavigate(); 
     const { expense } = location.state || {}; 
     //const onUpdate = location.state?.onUpdate; 
     const [category, setCategory] = useState(expense?.category || '');
