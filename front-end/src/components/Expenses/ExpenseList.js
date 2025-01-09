@@ -42,9 +42,9 @@ const ExpenseList = () => {
         console.log('Deleting expense with ID:', id);
         if (id) {
             try {
-                const token = localStorage.getItem('token'); // Retrieve the token from local storage
+                const token = localStorage.getItem('token'); 
                 await axios.delete(`http://localhost:8000/api/expenses/${id}`, {
-                    headers: { Authorization: `Bearer ${token}` }, // Include the token in the headers
+                    headers: { Authorization: `Bearer ${token}` }, 
                 });
                 // Remove deleted expense from the list
                 setExpenses(expenses.filter(expense => expense._id !== id));
@@ -72,7 +72,7 @@ const ExpenseList = () => {
                 </thead>
                 <tbody>
                     {expenses
-                        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort by Created At date
+                        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) 
                         .map((expense) => (
                         <tr key={expense._id}>
                             <td>{expense.category}</td>
