@@ -16,7 +16,6 @@ const AddExpense = () => {
                 { headers: { Authorization: `Bearer ${token}` } } 
             );
             if (response.status === 201) {
-                // Handle successful expense addition (e.g., reset form, show success message)
                 setCategory('');
                 setAmount('');
                 setComments('');
