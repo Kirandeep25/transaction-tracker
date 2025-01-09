@@ -29,7 +29,7 @@ const AddExpense = () => {
 
     return (
         <div className="container">
-            {successMessage && <div className="alert alert-success">{successMessage}</div>} {/* Display success message */}
+            {successMessage && <div className="alert alert-success">{successMessage}</div>} {}
             <form onSubmit={handleSubmit}>
                 <h2 className="mt-4">Add Expense</h2>
                 <div className="form-group">
