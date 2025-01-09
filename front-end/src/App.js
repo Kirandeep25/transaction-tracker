@@ -11,11 +11,11 @@ import Navbar from './components/Navbar';
 import './App.css';
 
 const App = () => {
-    const [expenses, setExpenses] = useState([]); // State to manage expenses
+    const [expenses, setExpenses] = useState([]); 
 
     const onLogin = (username) => {
-        localStorage.setItem('username', username); // Store the username in local storage
-        setExpenses([]); // Clear expenses on login
+        localStorage.setItem('username', username);
+        setExpenses([]); 
     };
 
     return (
@@ -24,12 +24,12 @@ const App = () => {
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login onLogin={onLogin} />} /> {/* Pass onLogin to Login */}
+                    <Route path="/login" element={<Login onLogin={onLogin} />} /> { }
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/add-expense" element={<AddExpense />} />
                     <Route path="/expense-list" element={<ExpenseList />} />
                     <Route path="/edit-expense" element={<EditExpense />} />
-                    <Route path="/chart" element={<ExpenseChart expenses={expenses} />} /> {/* Pass expenses to ExpenseChart */}
+                    <Route path="/chart" element={<ExpenseChart expenses={expenses} />} /> { }
                 </Routes>
             </div>
         </Router>
