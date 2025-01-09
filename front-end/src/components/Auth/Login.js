@@ -13,10 +13,10 @@ const Login = ({ onLogin }) => {
         try {
             const response = await axios.post('http://localhost:8000/api/auth/login', { username, password });
             if (response.status === 200) {
-                // Store token and username in localStorage
+                
                 localStorage.setItem('token', response.data.accessToken);
-                localStorage.setItem('username', username); // Store the username
-                onLogin(username); // Call onLogin to clear any existing state
+                localStorage.setItem('username', username); 
+                onLogin(username); 
                 navigate('/');
             }
         } catch (error) {
