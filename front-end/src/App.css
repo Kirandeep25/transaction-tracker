@@ -28,14 +28,15 @@
   width: 1280px;
   margin: 0 auto;
 
-}.custom-navbar {
-  background-color: #a7e0ff; 
-  color: white; 
 }
 
+}.custom-navbar {
+  background-color: #e0dfdf; 
+  color: white; 
+}
 .custom-navbar .navbar-brand,
 .custom-navbar .nav-link {
-  color: rgb(40, 3, 3) !important; 
+  color: rgb(13, 2, 2) !important; 
   transition: color 0.3s ease; 
 }
 
