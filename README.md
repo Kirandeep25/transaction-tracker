@@ -130,3 +130,10 @@ expense-tracker/
 ```
 
 ---
+## Demo Video
+
+Here is a short demo of the application:
+
+### Sample Images
+
+![image](https://github.com/user-attachments/assets/31d06ad3-464f-42a1-83b2-608d6c2e2775)
