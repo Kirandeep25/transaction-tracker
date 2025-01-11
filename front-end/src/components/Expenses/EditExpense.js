@@ -34,23 +34,36 @@ const EditExpense = () => {
     };
 
     return (
-<form onSubmit={handleSubmit} className="form-container">
-            <div>
-                <label>Category:</label>
-                <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} />
-            </div>
-            <div>
-                <label>Amount:</label>
-                <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
-            </div>
-            <div>
-                <label>Comments:</label>
-                <input type="text" value={comments} onChange={(e) => setComments(e.target.value)} />
-            </div>
-            <button type="submit" className="btn btn-success">
-                Update Expense
-            </button>
-        </form>
+    <form onSubmit={handleSubmit} className="form-container container mt-4 p-4 border rounded bg-light shadow">
+    <div className="mb-3 text-start">
+        <label className="form-label ">Category:</label>
+        <input
+            type="text"
+            className="form-control"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+        />
+    </div>
+    <div className="mb-3 text-start">
+        <label className="form-label">Amount:</label>
+        <input
+            type="number"
+            className="form-control"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+        />
+    </div>
+    <div className="mb-3 text-start">
+        <label className="form-label">Comments:</label>
+        <input
+            type="text"
+            className="form-control"
+            value={comments}
+            onChange={(e) => setComments(e.target.value)}
+        />
+    </div>
+    <button type="submit" className="btn btn-success w-100">Update Expense</button>
+    </form>
     );
 };
 
