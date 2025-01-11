@@ -135,4 +135,5 @@ Click [here](./tracker.mp4) to watch the project demonstration.
 
 ### Sample Images
 
-![image](https://github.com/user-attachments/assets/31d06ad3-464f-42a1-83b2-608d6c2e2775)
+![image](https://github.com/user-attachments/assets/6b907f88-3782-464a-adc1-f463dbda182c)
+
