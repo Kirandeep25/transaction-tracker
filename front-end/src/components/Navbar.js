@@ -3,27 +3,27 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container-fluid">
-                <Link className="navbar-brand" to="/">Expense Tracker</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/add-expense">Add Expense</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/chart">Expence Chart</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/expense-list">Expense List</Link>
-                        </li>
-                    </ul>
-                </div>
+        <nav className="navbar navbar-expand-lg custom-navbar">
+        <div className="container-fluid">
+        <Link className="navbar-brand" to="/">Expense Tracker</Link>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="navbar-nav">
+            <li className="nav-item">
+            <Link className="nav-link" to="/add-expense">Add Expense</Link>
+            </li>
+            <li className="nav-item">
+            <Link className="nav-link" to="/chart">Expense Chart</Link>
+            </li>
+            <li className="nav-item">
+            <Link className="nav-link" to="/expense-list">Expense List</Link>
+            </li>
+        </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
     );
 };
 
