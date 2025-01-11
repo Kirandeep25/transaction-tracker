@@ -29,19 +29,22 @@ const AddExpense = () => {
     return (
         <div className="container">
             {successMessage && <div className="alert alert-success">{successMessage}</div>} {}
-            <form onSubmit={handleSubmit}>
-                <h2 className="mt-4">Add Expense</h2>
-                <div className="form-group">
-                    <input type="text" className="form-control" placeholder="Category" value={category} onChange={(e) => setCategory(e.target.value)} required />
-                </div>
-                <div className="form-group">
-                    <input type="number" className="form-control" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required />
-                </div>
-                <div className="form-group">
-                    <textarea className="form-control" placeholder="Comments" value={comments} onChange={(e) => setComments(e.target.value)} />
-                </div>
-                <button type="submit" className="btn btn-primary">Add Expense</button>
-            </form>
+             <form onSubmit={handleSubmit} className="p-4 bg-light border rounded shadow">
+            <h2 className="mb-4 text-start">Add Expense</h2>
+            <div className="row mb-3">
+                <label htmlFor="category" className="form-label text-start">Category</label>
+                <input type="text" id="category" className="form-control" placeholder="Enter category" value={category} onChange={(e) => setCategory(e.target.value)} required/>
+            </div>
+            <div className="row mb-3">
+                <label htmlFor="amount" className="form-label text-start">Amount</label>
+                <input type="number" id="amount" className="form-control" placeholder="Enter amount" value={amount} onChange={(e) => setAmount(e.target.value)}required/>
+            </div>
+            <div className="row mb-3">
+                <label htmlFor="comments" className="form-label text-start">Comments</label>
+                <textarea id="comments" className="form-control"rows="3" placeholder="Enter comments" value={comments} onChange={(e) => setComments(e.target.value)}></textarea>
+            </div>
+            <button type="submit" className="btn btn-primary w-100">Add Expense</button>
+        </form>
         </div>
     );
 };
