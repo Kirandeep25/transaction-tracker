@@ -8,7 +8,6 @@ const Home = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Get the username from localStorage or set it as 'Guest'
         const storedUsername = localStorage.getItem('username');
         if (storedUsername) {
             setUsername(storedUsername);
@@ -21,10 +20,10 @@ const Home = () => {
             await axios.delete('http://localhost:8000/api/auth/logout', {
                 data: { token },
             });
-            localStorage.removeItem('token'); // Clear the token from local storage
-            localStorage.removeItem('username'); // Clear the username from local storage
-            setUsername(''); // Update username state
-            navigate('/login'); // Redirect to login page
+            localStorage.removeItem('token'); 
+            localStorage.removeItem('username');
+            setUsername(''); 
+            navigate('/login'); 
         } catch (error) {
             console.error('Logout failed:', error);
         }
@@ -33,7 +32,7 @@ const Home = () => {
     return (
         <div className="container text-center mt-5">
             <div className="card p-4 shadow-lg">
-                <h1 className="mb-3">Welcome to the Expense Tracker</h1>
+                <h1 className="mb-3">Welcome! How are your expenses This days?</h1>
                 {username ? (
                     <h4 className="text-secondary mb-4">Hello, {username}!</h4>
                 ) : (
