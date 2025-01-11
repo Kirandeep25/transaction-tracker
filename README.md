@@ -131,8 +131,7 @@ expense-tracker/
 
 ---
 ## Demo Video
-
-Here is a short demo of the application:
+Click [here](./tracker.mp4) to watch the project demonstration.  
 
 ### Sample Images
 
