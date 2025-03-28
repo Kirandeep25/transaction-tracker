@@ -8,5 +8,6 @@ const ExpenseSchema = new mongoose.Schema({
     updatedAt: { type: Date, default: Date.now },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, 
 });
-
+ExpenseSchema.index({ user: 1, createdAt: -1 }); 
+ExpenseSchema.index({ category: 1 });
 module.exports = mongoose.model('Expense', ExpenseSchema);

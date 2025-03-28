@@ -1,63 +1,110 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { saveAs } from 'file-saver';
 
-const ExpenseList = () => {
-    const [expenses, setExpenses] = useState([]);
-    const [totalAmount, setTotalAmount] = useState(0);
+const TransactionList = () => {
+    const [transactions, setTransactions] = useState([]);
+    const [totalBalance, setTotalBalance] = useState(0);
+    const [filterType, setFilterType] = useState('');
+    const [startDate, setStartDate] = useState('');
+  
+    const [endDate, setEndDate] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchExpenses = async () => {
+        const fetchTransactions = async () => {
             try {
                 const token = localStorage.getItem('token'); 
                 if (!token) {
-                    console.error("No token found in local storage.");
+                    console.error("No token found.");
                     return;
                 }
-                const response = await axios.get('http://localhost:8000/api/expenses', {
-                    headers: {
-                        Authorization: `Bearer ${token}`, 
-                    }
+                const response = await axios.get('http://localhost:8000/api/transactions', {
+                    headers: { Authorization: `Bearer ${token}` },
                 });
-                setExpenses(response.data);
-                const total = response.data.reduce((acc, expense) => acc + expense.amount, 0);
-                setTotalAmount(total);
+                setTransactions(response.data);
             } catch (error) {
-                console.error('Failed to fetch expenses:', error);
+                console.error('Failed to fetch transactions:', error);
             }
         };
 
-        fetchExpenses();
+        fetchTransactions();
     }, []);
- 
+
     useEffect(() => {
-        const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
-        setTotalAmount(total);
-    }, [expenses]);
+        const total = transactions.reduce((acc, transaction) => {
+            return transaction.type === 'Income' ? acc + transaction.amount : acc - transaction.amount;
+        }, 0);
+        setTotalBalance(total);
+    }, [transactions]);
+
     const handleDelete = async (id) => {
-        console.log('Deleting expense with ID:', id);
-        if (id) {
-            try {
-                const token = localStorage.getItem('token'); 
-                await axios.delete(`http://localhost:8000/api/expenses/${id}`, {
-                    headers: { Authorization: `Bearer ${token}` }, 
-                });
-                setExpenses(expenses.filter(expense => expense._id !== id));
-            } catch (error) {
-                console.error('Failed to delete expense:', error);
-            }
-        } else {
-            console.error('No ID provided for deletion');
+        if (!id) return console.error('No ID provided for deletion');
+
+        try {
+            const token = localStorage.getItem('token'); 
+            await axios.delete(`http://localhost:8000/api/transactions/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setTransactions(transactions.filter(transaction => transaction._id !== id));
+        } catch (error) {
+            console.error('Failed to delete transaction:', error);
         }
     };
-    
+
+    // Filtering logic
+    const filteredTransactions = transactions.filter(transaction => {
+        const createdAt = new Date(transaction.createdAt);
+        const start = startDate ? new Date(startDate) : null;
+        const end = endDate ? new Date(endDate) : null;
+
+        return (!filterType || transaction.type === filterType) &&
+               (!filterCategory || transaction.category === filterCategory) &&
+               (!start || createdAt >= start) &&
+               (!end || createdAt <= end);
+    });
+
+    // CSV Export Function
+    const exportToCSV = () => {
+        const csvContent = "Type,Category,Amount,Comments,Created At,Updated At\n" +
+            filteredTransactions.map(trans => 
+                `${trans.type},${trans.category},${trans.amount},"${trans.comments || ''}",${new Date(trans.createdAt).toLocaleDateString()},${new Date(trans.updatedAt).toLocaleDateString()}`
+            ).join("\n");
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        saveAs(blob, "transactions.csv");
+    };
+
     return (
-       <div className="Expensecontainer mt-5">
-        <h2 className="mb-4 text-start">Expense List</h2>
+       <div className="TransactionContainer mt-5">
+        <h2 className="mb-4 text-start">Transactions</h2>
+
+        {/* Filters */}
+        <div className="d-flex gap-2 mb-3">
+            <input type="date" className="form-control" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+            <input type="date" className="form-control" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+            <select className="form-select" value={filterType} onChange={(e) => setFilterType(e.target.value)}>
+                <option value="">All Types</option>
+                <option value="Income">Income</option>
+                <option value="Expense">Expense</option>
+            </select>
+            <select className="form-select" value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
+                <option value="">All Categories</option>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Bills">Bills</option>
+                <option value="Salary">Salary</option>
+                <option value="Freelancing">Freelancing</option>
+            </select>
+            <button className="btn btn-success" onClick={exportToCSV}>Export CSV</button>
+        </div>
+
         <table className="table table-striped table-hover border shadow">
           <thead className="table-light">
             <tr>
+              <th>Type</th>
               <th>Category</th>
               <th>Amount</th>
               <th>Comments</th>
@@ -67,29 +114,36 @@ const ExpenseList = () => {
             </tr>
           </thead>
           <tbody>
-            {expenses
-              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort by Created At date
-              .map((expense) => (
-                <tr key={expense._id}>
-                  <td>{expense.category}</td>
-                  <td>${expense.amount.toFixed(2)}</td>
-                  <td>{expense.comments || "N/A"}</td>
-                  <td>{new Date(expense.createdAt).toLocaleDateString()}</td>
-                  <td>{new Date(expense.updatedAt).toLocaleDateString()}</td>
+            {filteredTransactions
+              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) 
+              .map((transaction) => (
+                <tr key={transaction._id}>
+                  <td>{transaction.type}</td>
+                  <td>{transaction.category}</td>
+                  <td className={transaction.type === 'Income' ? 'text-success' : 'text-danger'}>
+                    ${transaction.amount.toFixed(2)}
+                  </td>
+                  <td>{transaction.comments || "N/A"}</td>
+                  <td>{new Date(transaction.createdAt).toLocaleDateString()}</td>
+                  <td>{new Date(transaction.updatedAt).toLocaleDateString()}</td>
                   <td>
                     <button
-                      onClick={() => handleDelete(expense._id)}
+                      onClick={() => handleDelete(transaction._id)}
                       className="btn btn-danger btn-sm me-2">Delete</button>
-                    <button onClick={() => navigate(`/edit-expense`, { state: { expense } })} className="btn btn-primary btn-sm">Edit</button>
+                    <button onClick={() => navigate(`/edit-transaction`, { state: { transaction } })} className="btn btn-primary btn-sm">Edit</button>
                   </td>
                 </tr>
               ))}
           </tbody>
         </table>
         <h4 className="text-start mt-4">
-          Total Amount: <span className="text-success">${totalAmount.toFixed(2)}</span>
+          Total Balance: <span className={totalBalance >= 0 ? "text-success" : "text-danger"}>
+            ${totalBalance.toFixed(2)}
+          </span>
         </h4>
       </div>
     );
 };
-export default ExpenseList;
+
+export default TransactionList;
+
